@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}用户登录{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>用户登录</h2>
+    <form action="{{ url_for('login') }}" method="post"> {# Updated action to use url_for #}
+        <div class="form-group">
+            <label for="username">用户名:</label>
+            <input type="text" id="username" name="username" placeholder="请输入用户名" required>
+        </div>
+        <div class="form-group">
+            <label for="password">密码:</label>
+            <input type="password" id="password" name="password" placeholder="请输入密码" required>
+        </div>
+        <button type="submit" class="submit-button login-button">登 录</button> {# Added login-button class if specific styling needed #}
+        <div class="options">
+            <div class="remember-me">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">记住我</label>
+            </div>
+            {# Link for forgot password (implement route if needed) #}
+            <a href="#">忘记密码?</a>
+        </div>
+        <div class="options options-register">
+             <span>还没有账号? <a href="{{ url_for('register') }}">立即注册</a></span> {# Link to register page #}
+        </div>
+    </form>
+</div>
+{% endblock %}

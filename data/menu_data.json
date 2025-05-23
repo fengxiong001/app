@@ -1,0 +1,778 @@
+{
+    "dishes": [
+        {
+            "id": "101",
+            "name": "红烧肉",
+            "price": 38.0,
+            "category_id": "1",
+            "image_url": "static/picture/101.png"
+        },
+        {
+            "id": "102",
+            "name": "糖醋排骨",
+            "price": 42.0,
+            "category_id": "1",
+            "image_url": "static/picture/102.png"
+        },
+        {
+            "id": "103",
+            "name": "宫保鸡丁",
+            "price": 35.0,
+            "category_id": "1",
+            "image_url": "static/picture/103.png"
+        },
+        {
+            "id": "104",
+            "name": "鱼香肉丝",
+            "price": 32.0,
+            "category_id": "1",
+            "image_url": "static/picture/104.png"
+        },
+        {
+            "id": "201",
+            "name": "凉拌黄瓜",
+            "price": 18.0,
+            "category_id": "2",
+            "image_url": "static/picture/201.png"
+        },
+        {
+            "id": "202",
+            "name": "皮蛋豆腐",
+            "price": 22.0,
+            "category_id": "2",
+            "image_url": "static/picture/202.png"
+        },
+        {
+            "id": "203",
+            "name": "口水鸡",
+            "price": 36.0,
+            "category_id": "2",
+            "image_url": "static/picture/203.png"
+        },
+        {
+            "id": "204",
+            "name": "夫妻肺片",
+            "price": 38.0,
+            "category_id": "2",
+            "image_url": "static/picture/204.png"
+        },
+        {
+            "id": "205",
+            "name": "凉拌木耳",
+            "price": 20.0,
+            "category_id": "2",
+            "image_url": "static/picture/205.png"
+        },
+        {
+            "id": "301",
+            "name": "紫菜蛋花汤",
+            "price": 15.0,
+            "category_id": "3",
+            "image_url": "static/picture/301.png"
+        },
+        {
+            "id": "302",
+            "name": "番茄蛋汤",
+            "price": 16.0,
+            "category_id": "3",
+            "image_url": "static/picture/302.png"
+        },
+        {
+            "id": "303",
+            "name": "冬瓜排骨汤",
+            "price": 28.0,
+            "category_id": "3",
+            "image_url": "static/picture/303.png"
+        },
+        {
+            "id": "304",
+            "name": "酸辣汤",
+            "price": 18.0,
+            "category_id": "3",
+            "image_url": "static/picture/304.png"
+        },
+        {
+            "id": "305",
+            "name": "菌菇汤",
+            "price": 25.0,
+            "category_id": "3",
+            "image_url": "static/picture/305.png"
+        },
+        {
+            "id": "401",
+            "name": "米饭",
+            "price": 3.0,
+            "category_id": "4",
+            "image_url": "static/picture/401.png"
+        },
+        {
+            "id": "402",
+            "name": "炒饭",
+            "price": 15.0,
+            "category_id": "4",
+            "image_url": "static/picture/402.png"
+        },
+        {
+            "id": "403",
+            "name": "面条",
+            "price": 12.0,
+            "category_id": "4",
+            "image_url": "static/picture/403.png"
+        },
+        {
+            "id": "404",
+            "name": "饺子",
+            "price": 20.0,
+            "category_id": "4",
+            "image_url": "static/picture/404.png"
+        },
+        {
+            "id": "405",
+            "name": "馒头",
+            "price": 2.0,
+            "category_id": "4",
+            "image_url": "static/picture/405.png"
+        },
+        {
+            "id": "501",
+            "name": "小笼包",
+            "price": 25.0,
+            "category_id": "5",
+            "image_url": "static/picture/501.png"
+        },
+        {
+            "id": "502",
+            "name": "烧卖",
+            "price": 22.0,
+            "category_id": "5",
+            "image_url": "static/picture/502.png"
+        },
+        {
+            "id": "503",
+            "name": "春卷",
+            "price": 18.0,
+            "category_id": "5",
+            "image_url": "static/picture/503.png"
+        },
+        {
+            "id": "504",
+            "name": "蛋挞",
+            "price": 15.0,
+            "category_id": "5",
+            "image_url": "static/picture/504.png"
+        },
+        {
+            "id": "505",
+            "name": "叉烧包",
+            "price": 20.0,
+            "category_id": "5",
+            "image_url": "static/picture/505.png"
+        },
+        {
+            "id": "601",
+            "name": "羊肉串",
+            "price": 8.0,
+            "category_id": "6",
+            "image_url": "static/picture/601.png"
+        },
+        {
+            "id": "602",
+            "name": "烤鸡翅",
+            "price": 12.0,
+            "category_id": "6",
+            "image_url": "static/picture/602.png"
+        },
+        {
+            "id": "603",
+            "name": "烤茄子",
+            "price": 15.0,
+            "category_id": "6",
+            "image_url": "static/picture/603.png"
+        },
+        {
+            "id": "604",
+            "name": "烤鱼",
+            "price": 45.0,
+            "category_id": "6",
+            "image_url": "static/picture/604.png"
+        },
+        {
+            "id": "605",
+            "name": "烤玉米",
+            "price": 10.0,
+            "category_id": "6",
+            "image_url": "static/picture/605.png"
+        },
+        {
+            "id": "701",
+            "name": "红烧牛肉",
+            "price": 48.0,
+            "category_id": "7",
+            "image_url": "static/picture/701.png"
+        },
+        {
+            "id": "702",
+            "name": "土豆炖鸡",
+            "price": 38.0,
+            "category_id": "7",
+            "image_url": "static/picture/702.png"
+        },
+        {
+            "id": "703",
+            "name": "红烧排骨",
+            "price": 42.0,
+            "category_id": "7",
+            "image_url": "static/picture/703.png"
+        },
+        {
+            "id": "704",
+            "name": "红烧鱼",
+            "price": 45.0,
+            "category_id": "7",
+            "image_url": "static/picture/704.png"
+        },
+        {
+            "id": "705",
+            "name": "红烧茄子",
+            "price": 25.0,
+            "category_id": "7",
+            "image_url": "static/picture/705.png"
+        },
+        {
+            "id": "801",
+            "name": "银耳莲子羹",
+            "price": 18.0,
+            "category_id": "8",
+            "image_url": "static/picture/801.png"
+        },
+        {
+            "id": "802",
+            "name": "冰糖雪梨",
+            "price": 15.0,
+            "category_id": "8",
+            "image_url": "static/picture/802.png"
+        },
+        {
+            "id": "803",
+            "name": "红枣枸杞汤",
+            "price": 20.0,
+            "category_id": "8",
+            "image_url": "static/picture/803.png"
+        },
+        {
+            "id": "804",
+            "name": "桂圆莲子汤",
+            "price": 22.0,
+            "category_id": "8",
+            "image_url": "static/picture/804.png"
+        },
+        {
+            "id": "805",
+            "name": "百合绿豆汤",
+            "price": 16.0,
+            "category_id": "8",
+            "image_url": "static/picture/805.png"
+        },
+        {
+            "id": "901",
+            "name": "青椒炒肉",
+            "price": 28.0,
+            "category_id": "9",
+            "image_url": "static/picture/901.png"
+        },
+        {
+            "id": "902",
+            "name": "蒜蓉空心菜",
+            "price": 18.0,
+            "category_id": "9",
+            "image_url": "static/picture/902.png"
+        },
+        {
+            "id": "903",
+            "name": "西红柿炒蛋",
+            "price": 22.0,
+            "category_id": "9",
+            "image_url": "static/picture/903.png"
+        },
+        {
+            "id": "904",
+            "name": "干煸四季豆",
+            "price": 20.0,
+            "category_id": "9",
+            "image_url": "static/picture/904.png"
+        },
+        {
+            "id": "905",
+            "name": "炒青菜",
+            "price": 15.0,
+            "category_id": "9",
+            "image_url": "static/picture/905.png"
+        },
+        {
+            "id": "1001",
+            "name": "清蒸鲈鱼",
+            "price": 58.0,
+            "category_id": "10",
+            "image_url": "static/picture/1001.png"
+        },
+        {
+            "id": "1002",
+            "name": "蒸蛋",
+            "price": 12.0,
+            "category_id": "10",
+            "image_url": "static/picture/1002.png"
+        },
+        {
+            "id": "1003",
+            "name": "蒸排骨",
+            "price": 38.0,
+            "category_id": "10",
+            "image_url": "static/picture/1003.png"
+        },
+        {
+            "id": "1004",
+            "name": "蒸鸡",
+            "price": 45.0,
+            "category_id": "10",
+            "image_url": "static/picture/1004.png"
+        },
+        {
+            "id": "1005",
+            "name": "蒸南瓜",
+            "price": 15.0,
+            "category_id": "10",
+            "image_url": "static/picture/1005.png"
+        },
+        {
+            "id": "328f29cb",
+            "name": "油麦菜",
+            "price": 18.0,
+            "category_id": "9",
+            "image_url": "static/picture/328f29cb.png"
+        }
+    ],
+    "categories": [
+        {
+            "id": "1",
+            "name": "热菜",
+            "dishes": [
+                {
+                    "id": "101",
+                    "name": "红烧肉",
+                    "price": 38.0,
+                    "category_id": "1",
+                    "image_url": "static/picture/101.png"
+                },
+                {
+                    "id": "102",
+                    "name": "糖醋排骨",
+                    "price": 42.0,
+                    "category_id": "1",
+                    "image_url": "static/picture/102.png"
+                },
+                {
+                    "id": "103",
+                    "name": "宫保鸡丁",
+                    "price": 35.0,
+                    "category_id": "1",
+                    "image_url": "static/picture/103.png"
+                },
+                {
+                    "id": "104",
+                    "name": "鱼香肉丝",
+                    "price": 32.0,
+                    "category_id": "1",
+                    "image_url": "static/picture/104.png"
+                }
+            ]
+        },
+        {
+            "id": "2",
+            "name": "冷菜",
+            "dishes": [
+                {
+                    "id": "201",
+                    "name": "凉拌黄瓜",
+                    "price": 18.0,
+                    "category_id": "2",
+                    "image_url": "static/picture/201.png"
+                },
+                {
+                    "id": "202",
+                    "name": "皮蛋豆腐",
+                    "price": 22.0,
+                    "category_id": "2",
+                    "image_url": "static/picture/202.png"
+                },
+                {
+                    "id": "203",
+                    "name": "口水鸡",
+                    "price": 36.0,
+                    "category_id": "2",
+                    "image_url": "static/picture/203.png"
+                },
+                {
+                    "id": "204",
+                    "name": "夫妻肺片",
+                    "price": 38.0,
+                    "category_id": "2",
+                    "image_url": "static/picture/204.png"
+                },
+                {
+                    "id": "205",
+                    "name": "凉拌木耳",
+                    "price": 20.0,
+                    "category_id": "2",
+                    "image_url": "static/picture/205.png"
+                }
+            ]
+        },
+        {
+            "id": "3",
+            "name": "汤品",
+            "dishes": [
+                {
+                    "id": "301",
+                    "name": "紫菜蛋花汤",
+                    "price": 15.0,
+                    "category_id": "3",
+                    "image_url": "static/picture/301.png"
+                },
+                {
+                    "id": "302",
+                    "name": "番茄蛋汤",
+                    "price": 16.0,
+                    "category_id": "3",
+                    "image_url": "static/picture/302.png"
+                },
+                {
+                    "id": "303",
+                    "name": "冬瓜排骨汤",
+                    "price": 28.0,
+                    "category_id": "3",
+                    "image_url": "static/picture/303.png"
+                },
+                {
+                    "id": "304",
+                    "name": "酸辣汤",
+                    "price": 18.0,
+                    "category_id": "3",
+                    "image_url": "static/picture/304.png"
+                },
+                {
+                    "id": "305",
+                    "name": "菌菇汤",
+                    "price": 25.0,
+                    "category_id": "3",
+                    "image_url": "static/picture/305.png"
+                }
+            ]
+        },
+        {
+            "id": "4",
+            "name": "主食",
+            "dishes": [
+                {
+                    "id": "401",
+                    "name": "米饭",
+                    "price": 3.0,
+                    "category_id": "4",
+                    "image_url": "static/picture/401.png"
+                },
+                {
+                    "id": "402",
+                    "name": "炒饭",
+                    "price": 15.0,
+                    "category_id": "4",
+                    "image_url": "static/picture/402.png"
+                },
+                {
+                    "id": "403",
+                    "name": "面条",
+                    "price": 12.0,
+                    "category_id": "4",
+                    "image_url": "static/picture/403.png"
+                },
+                {
+                    "id": "404",
+                    "name": "饺子",
+                    "price": 20.0,
+                    "category_id": "4",
+                    "image_url": "static/picture/404.png"
+                },
+                {
+                    "id": "405",
+                    "name": "馒头",
+                    "price": 2.0,
+                    "category_id": "4",
+                    "image_url": "static/picture/405.png"
+                }
+            ]
+        },
+        {
+            "id": "5",
+            "name": "点心",
+            "dishes": [
+                {
+                    "id": "501",
+                    "name": "小笼包",
+                    "price": 25.0,
+                    "category_id": "5",
+                    "image_url": "static/picture/501.png"
+                },
+                {
+                    "id": "502",
+                    "name": "烧卖",
+                    "price": 22.0,
+                    "category_id": "5",
+                    "image_url": "static/picture/502.png"
+                },
+                {
+                    "id": "503",
+                    "name": "春卷",
+                    "price": 18.0,
+                    "category_id": "5",
+                    "image_url": "static/picture/503.png"
+                },
+                {
+                    "id": "504",
+                    "name": "蛋挞",
+                    "price": 15.0,
+                    "category_id": "5",
+                    "image_url": "static/picture/504.png"
+                },
+                {
+                    "id": "505",
+                    "name": "叉烧包",
+                    "price": 20.0,
+                    "category_id": "5",
+                    "image_url": "static/picture/505.png"
+                }
+            ]
+        },
+        {
+            "id": "6",
+            "name": "烧烤",
+            "dishes": [
+                {
+                    "id": "601",
+                    "name": "羊肉串",
+                    "price": 8.0,
+                    "category_id": "6",
+                    "image_url": "static/picture/601.png"
+                },
+                {
+                    "id": "602",
+                    "name": "烤鸡翅",
+                    "price": 12.0,
+                    "category_id": "6",
+                    "image_url": "static/picture/602.png"
+                },
+                {
+                    "id": "603",
+                    "name": "烤茄子",
+                    "price": 15.0,
+                    "category_id": "6",
+                    "image_url": "static/picture/603.png"
+                },
+                {
+                    "id": "604",
+                    "name": "烤鱼",
+                    "price": 45.0,
+                    "category_id": "6",
+                    "image_url": "static/picture/604.png"
+                },
+                {
+                    "id": "605",
+                    "name": "烤玉米",
+                    "price": 10.0,
+                    "category_id": "6",
+                    "image_url": "static/picture/605.png"
+                }
+            ]
+        },
+        {
+            "id": "7",
+            "name": "炖菜",
+            "dishes": [
+                {
+                    "id": "701",
+                    "name": "红烧牛肉",
+                    "price": 48.0,
+                    "category_id": "7",
+                    "image_url": "static/picture/701.png"
+                },
+                {
+                    "id": "702",
+                    "name": "土豆炖鸡",
+                    "price": 38.0,
+                    "category_id": "7",
+                    "image_url": "static/picture/702.png"
+                },
+                {
+                    "id": "703",
+                    "name": "红烧排骨",
+                    "price": 42.0,
+                    "category_id": "7",
+                    "image_url": "static/picture/703.png"
+                },
+                {
+                    "id": "704",
+                    "name": "红烧鱼",
+                    "price": 45.0,
+                    "category_id": "7",
+                    "image_url": "static/picture/704.png"
+                },
+                {
+                    "id": "705",
+                    "name": "红烧茄子",
+                    "price": 25.0,
+                    "category_id": "7",
+                    "image_url": "static/picture/705.png"
+                }
+            ]
+        },
+        {
+            "id": "8",
+            "name": "炖品",
+            "dishes": [
+                {
+                    "id": "801",
+                    "name": "银耳莲子羹",
+                    "price": 18.0,
+                    "category_id": "8",
+                    "image_url": "static/picture/801.png"
+                },
+                {
+                    "id": "802",
+                    "name": "冰糖雪梨",
+                    "price": 15.0,
+                    "category_id": "8",
+                    "image_url": "static/picture/802.png"
+                },
+                {
+                    "id": "803",
+                    "name": "红枣枸杞汤",
+                    "price": 20.0,
+                    "category_id": "8",
+                    "image_url": "static/picture/803.png"
+                },
+                {
+                    "id": "804",
+                    "name": "桂圆莲子汤",
+                    "price": 22.0,
+                    "category_id": "8",
+                    "image_url": "static/picture/804.png"
+                },
+                {
+                    "id": "805",
+                    "name": "百合绿豆汤",
+                    "price": 16.0,
+                    "category_id": "8",
+                    "image_url": "static/picture/805.png"
+                }
+            ]
+        },
+        {
+            "id": "9",
+            "name": "炒菜",
+            "dishes": [
+                {
+                    "id": "901",
+                    "name": "青椒炒肉",
+                    "price": 28.0,
+                    "category_id": "9",
+                    "image_url": "static/picture/901.png"
+                },
+                {
+                    "id": "902",
+                    "name": "蒜蓉空心菜",
+                    "price": 18.0,
+                    "category_id": "9",
+                    "image_url": "static/picture/902.png"
+                },
+                {
+                    "id": "903",
+                    "name": "西红柿炒蛋",
+                    "price": 22.0,
+                    "category_id": "9",
+                    "image_url": "static/picture/903.png"
+                },
+                {
+                    "id": "904",
+                    "name": "干煸四季豆",
+                    "price": 20.0,
+                    "category_id": "9",
+                    "image_url": "static/picture/904.png"
+                },
+                {
+                    "id": "905",
+                    "name": "炒青菜",
+                    "price": 15.0,
+                    "category_id": "9",
+                    "image_url": "static/picture/905.png"
+                },
+                {
+                    "id": "328f29cb",
+                    "name": "油麦菜",
+                    "price": 18.0,
+                    "category_id": "9",
+                    "image_url": "static/picture/328f29cb.png"
+                }
+            ]
+        },
+        {
+            "id": "10",
+            "name": "蒸菜",
+            "dishes": [
+                {
+                    "id": "1001",
+                    "name": "清蒸鲈鱼",
+                    "price": 58.0,
+                    "category_id": "10",
+                    "image_url": "static/picture/1001.png"
+                },
+                {
+                    "id": "1002",
+                    "name": "蒸蛋",
+                    "price": 12.0,
+                    "category_id": "10",
+                    "image_url": "static/picture/1002.png"
+                },
+                {
+                    "id": "1003",
+                    "name": "蒸排骨",
+                    "price": 38.0,
+                    "category_id": "10",
+                    "image_url": "static/picture/1003.png"
+                },
+                {
+                    "id": "1004",
+                    "name": "蒸鸡",
+                    "price": 45.0,
+                    "category_id": "10",
+                    "image_url": "static/picture/1004.png"
+                },
+                {
+                    "id": "1005",
+                    "name": "蒸南瓜",
+                    "price": 15.0,
+                    "category_id": "10",
+                    "image_url": "static/picture/1005.png"
+                }
+            ]
+        }
+    ],
+    "users": {
+        "xf123": {
+            "email": "15271027639@163.com",
+            "password_hash": "pbkdf2:sha256:260000$xTDOA9fhJ67pAJlz$b0bb2a95cf26d44ab20d446810db7a0fd6b6a7174c3781fdfdec0638b331f91f",
+            "is_admin": true
+        },
+        "xf456": {
+            "email": "15271027639@163.com",
+            "password_hash": "pbkdf2:sha256:260000$xTDOA9fhJ67pAJlz$b0bb2a95cf26d44ab20d446810db7a0fd6b6a7174c3781fdfdec0638b331f91f",
+            "is_admin": false
+        }
+    }
+}

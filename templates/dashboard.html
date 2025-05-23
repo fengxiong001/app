@@ -1,0 +1,733 @@
+{% extends 'base.html' %}
+
+{% block title %}菜品管理中心{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- 顶部导航栏 -->
+    <nav class="main-nav">
+        <div class="nav-content">
+            <div class="logo">
+                <h1>菜品管理中心</h1>
+            </div>
+            <div class="user-info">
+                <span class="welcome-text">欢迎您, <strong>{{ username }}</strong></span>
+                <a href="{{ url_for('logout') }}" class="logout-button">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 菜单切换按钮 -->
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+        <i class="fas fa-bars"></i>
+        <span class="menu-text">菜单</span>
+    </button>
+
+    <!-- 管理员功能区 -->
+    {% if is_admin %}
+    <div class="admin-panel">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#addDishModal">
+            <i class="fas fa-plus"></i> 添加新菜品
+        </button>
+    </div>
+    {% endif %}
+
+    <!-- 分类导航 -->
+    <div class="category-nav active" id="categoryNav">
+        <div class="category-list">
+            {% for category in categories %}
+            <a href="#category-{{ category.id }}" class="category-link {% if loop.first %}active{% endif %}">
+                {{ category.name }}
+                <span class="dish-count">{{ category.dishes|length }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- 菜品展示区 -->
+    <div class="menu-categories">
+        {% for category in categories %}
+        <section id="category-{{ category.id }}" class="category-section">
+            <div class="dishes-grid">
+                {% for dish in category.dishes %}
+                <div class="dish-card" data-dish-id="{{ dish.id }}">
+                    <div class="dish-image-container">
+                        <img src="{{ dish.image_url }}" alt="{{ dish.name }}" class="dish-image">
+                        <div class="dish-overlay">
+                            {% if is_admin %}
+                            <div class="admin-controls">
+                                <button class="btn btn-edit" onclick="editDish('{{ dish.id }}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-delete" onclick="deleteDish('{{ dish.id }}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="dish-info">
+                        <h3>{{ dish.name }}</h3>
+                        <p class="price">¥{{ dish.price }}</p>
+                        <button class="btn btn-primary add-to-cart" 
+                                data-id="{{ dish.id }}"
+                                data-name="{{ dish.name }}"
+                                data-price="{{ dish.price }}">
+                            添加到购物车
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endfor %}
+    </div>
+
+    <!-- 购物车 -->
+    <div id="cart-container" class="card">
+        <div class="card-header">
+            <h4>购物车</h4>
+        </div>
+        <div class="card-body">
+            <div id="cart-items"></div>
+            <div class="text-right mt-3">
+                <h5>总计: ¥<span id="cart-total">0.00</span></h5>
+                <button class="btn btn-success" id="submit-order">提交订单</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加菜品的模态框 -->
+    {% if is_admin %}
+    <div class="modal fade" id="addDishModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">添加新菜品</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addDishForm" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="dishName">菜品名称</label>
+                            <input type="text" class="form-control" id="dishName" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">所属分类</label>
+                            <select class="form-control" id="category" name="category" required>
+                                {% for category in categories %}
+                                <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">价格</label>
+                            <input type="number" class="form-control" id="price" name="price" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">菜品图片</label>
+                            <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 编辑菜品的模态框 -->
+    <div class="modal fade" id="editDishModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">编辑菜品</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editDishForm" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" id="editDishId" name="dish_id">
+                        <div class="form-group">
+                            <label for="editDishName">菜品名称</label>
+                            <input type="text" class="form-control" id="editDishName" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editCategory">所属分类</label>
+                            <select class="form-control" id="editCategory" name="category" required>
+                                {% for category in categories %}
+                                <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editPrice">价格</label>
+                            <input type="number" class="form-control" id="editPrice" name="price" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editImage">菜品图片</label>
+                            <input type="file" class="form-control-file" id="editImage" name="image" accept="image/*">
+                            <small class="form-text text-muted">如不更换图片，请留空</small>
+                        </div>
+                        <div class="current-image-container mt-2 mb-3" id="currentImageContainer" style="display: none;">
+                            <label>当前图片:</label>
+                            <img id="currentDishImage" src="" alt="当前菜品图片" style="max-width: 100%; max-height: 150px;">
+                        </div>
+                        <button type="submit" class="btn btn-primary">保存修改</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 删除菜品确认模态框 -->
+    <div class="modal fade" id="deleteDishModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">确认删除</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>确定要删除这个菜品吗？此操作无法撤销。</p>
+                    <input type="hidden" id="deleteDishId">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-danger" id="confirmDelete">确认删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- 菜品详情模态框 -->
+    <div class="modal fade" id="dishDetailModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="dish-detail-container">
+                        <div class="dish-detail-image">
+                            <img id="detailDishImage" src="" alt="菜品图片">
+                        </div>
+                        <div class="dish-detail-info">
+                            <h2 id="detailDishName"></h2>
+                            <p class="detail-price" id="detailDishPrice"></p>
+                            <div class="dish-actions">
+                                {% if is_admin %}
+                                <button class="btn btn-edit" id="detailEditBtn">
+                                    <i class="fas fa-edit"></i> 编辑
+                                </button>
+                                <button class="btn btn-delete" id="detailDeleteBtn">
+                                    <i class="fas fa-trash"></i> 删除
+                                </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.dishes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.dish-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    aspect-ratio: 1/1.618;
+    display: flex;
+    flex-direction: column;
+}
+
+.dish-card:hover {
+    transform: translateY(-5px);
+}
+
+.dish-image-container {
+    position: relative;
+    width: 100%;
+    height: 61.8%;
+    overflow: hidden;
+}
+
+.dish-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.dish-card:hover .dish-image {
+    transform: scale(1.1);
+}
+
+.dish-info {
+    padding: 15px;
+    height: 38.2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: white;
+}
+
+.dish-info h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.dish-info .price {
+    margin: 0;
+    font-size: 18px;
+    color: #e74c3c;
+    font-weight: 600;
+    margin-top: auto;
+}
+
+/* 响应式布局 */
+@media (min-width: 1600px) {
+    .dishes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+}
+
+@media (max-width: 1599px) {
+    .dishes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+}
+
+@media (max-width: 1200px) {
+    .dishes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 992px) {
+    .dishes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .dishes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+}
+
+@media (max-width: 576px) {
+    .dishes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let cart = [];
+
+function addToCart(dishId, dishName, dishPrice) {
+    const existingItem = cart.find(item => item.id === dishId);
+    if (existingItem) {
+        existingItem.quantity += 1;
+        existingItem.total = existingItem.quantity * dishPrice;
+    } else {
+        cart.push({ id: dishId, name: dishName, price: dishPrice, quantity: 1, total: dishPrice });
+    }
+    updateCartDisplay();
+}
+
+function updateCartDisplay() {
+    const cartContainer = $('#cart-items');
+    cartContainer.empty();
+    let total = 0;
+    cart.forEach(item => {
+        cartContainer.append(`
+            <div class="cart-item">
+                <div class="d-flex justify-content-between">
+                    <span>${item.name}</span>
+                    <span>¥${item.price}</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                    <div>
+                        <button class="btn btn-sm btn-outline-primary decrease-quantity" data-id="${item.id}">-</button>
+                        <span class="mx-2">${item.quantity}</span>
+                        <button class="btn btn-sm btn-outline-primary increase-quantity" data-id="${item.id}">+</button>
+                    </div>
+                    <span>小计: ¥${item.total.toFixed(2)}</span>
+                </div>
+            </div>
+        `);
+        total += item.total;
+    });
+    $('#cart-total').text(total.toFixed(2));
+}
+
+$(document).on('click', '.add-to-cart', function(e) {
+    e.stopPropagation(); // 阻止事件冒泡
+    const dishId = $(this).data('id');
+    const dishName = $(this).data('name');
+    const dishPrice = parseFloat($(this).data('price'));
+    addToCart(dishId, dishName, dishPrice);
+});
+
+$(document).on('click', '.decrease-quantity', function() {
+    const dishId = $(this).data('id');
+    const item = cart.find(item => item.id === dishId);
+    if (item.quantity > 1) {
+        item.quantity -= 1;
+        item.total = item.quantity * item.price;
+    } else {
+        cart = cart.filter(item => item.id !== dishId);
+    }
+    updateCartDisplay();
+});
+
+$(document).on('click', '.increase-quantity', function() {
+    const dishId = $(this).data('id');
+    const item = cart.find(item => item.id === dishId);
+    item.quantity += 1;
+    item.total = item.quantity * item.price;
+    updateCartDisplay();
+});
+
+$('#submit-order').click(function() {
+    if (cart.length === 0) {
+        alert('购物车为空，请先添加菜品');
+        return;
+    }
+    const orderItems = cart.map(item => ({ dish_id: item.id, quantity: item.quantity }));
+    $.ajax({
+        url: '/api/orders',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ items: orderItems }),
+        success: function(response) {
+            alert('订单提交成功！');
+            cart = [];
+            updateCartDisplay();
+            // 跳转到点单完成页面
+            window.location.href = '/order-complete';
+        },
+        error: function(xhr) {
+            alert('订单提交失败：' + (xhr.responseJSON ? xhr.responseJSON.error : '未知错误'));
+        }
+    });
+});
+
+function editDish(dishId) {
+    // 获取菜品详情并填充编辑表单
+    fetch(`/api/dishes/${dishId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('获取菜品信息失败');
+            }
+            return response.json();
+        })
+        .then(dish => {
+            // 填充表单数据
+            document.getElementById('editDishId').value = dish.id;
+            document.getElementById('editDishName').value = dish.name;
+            document.getElementById('editCategory').value = dish.category_id;
+            document.getElementById('editPrice').value = dish.price;
+            
+            // 显示当前图片
+            if (dish.image_url) {
+                document.getElementById('currentImageContainer').style.display = 'block';
+                document.getElementById('currentDishImage').src = dish.image_url;
+            } else {
+                document.getElementById('currentImageContainer').style.display = 'none';
+            }
+            
+            // 显示编辑模态框
+            $('#editDishModal').modal('show');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('获取菜品信息失败: ' + error.message);
+        });
+}
+
+function deleteDish(dishId) {
+    // 设置要删除的菜品ID
+    document.getElementById('deleteDishId').value = dishId;
+    // 显示确认删除的模态框
+    $('#deleteDishModal').modal('show');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // 获取所有需要的元素
+    const menuToggle = document.getElementById('menuToggle');
+    const categoryNav = document.getElementById('categoryNav');
+    const dashboardContainer = document.querySelector('.dashboard-container');
+    const categoryLinks = document.querySelectorAll('.category-link');
+    const sections = document.querySelectorAll('.category-section');
+    const addDishForm = document.getElementById('addDishForm');
+    const editDishForm = document.getElementById('editDishForm');
+    const confirmDeleteBtn = document.getElementById('confirmDelete');
+    const dishCards = document.querySelectorAll('.dish-card');
+    const detailModal = $('#dishDetailModal');
+    const detailImage = document.getElementById('detailDishImage');
+    const detailName = document.getElementById('detailDishName');
+    const detailPrice = document.getElementById('detailDishPrice');
+    const detailEditBtn = document.getElementById('detailEditBtn');
+    const detailDeleteBtn = document.getElementById('detailDeleteBtn');
+
+    // 检查是否为移动设备
+    function isMobile() {
+        return window.innerWidth <= 768;
+    }
+
+    // 初始化导航栏状态：保持分类导航可见，仅重置菜单打开状态
+    function initNavState() {
+        dashboardContainer.classList.remove('menu-open');
+    }
+
+    // 显示指定分类的菜品
+    function showCategory(categoryId) {
+        // 隐藏所有分类的菜品
+        sections.forEach(section => {
+            section.style.display = 'none';
+        });
+
+        // 显示选中的分类的菜品
+        const selectedSection = document.getElementById(`category-${categoryId}`);
+        if (selectedSection) {
+            selectedSection.style.display = 'block';
+            
+            // 在桌面设备上滚动到分类区域
+            if (!isMobile()) {
+                const navHeight = document.querySelector('.main-nav').offsetHeight;
+                const categoryNavHeight = document.querySelector('.category-nav').offsetHeight;
+                const offset = selectedSection.offsetTop - navHeight - categoryNavHeight;
+                window.scrollTo({
+                    top: offset,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // 更新分类链接的激活状态
+        categoryLinks.forEach(link => {
+            if (link.getAttribute('href') === `#category-${categoryId}`) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+
+    // 初始化导航栏状态
+    initNavState();
+
+    // 添加分类导航的点击事件
+    categoryLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const categoryId = this.getAttribute('href').split('-')[1];
+            showCategory(categoryId);
+
+            if (isMobile()) {
+                // 只关闭遮罩层，保持侧边导航显示
+                dashboardContainer.classList.remove('menu-open');
+            }
+        });
+    });
+
+    // 菜单切换功能
+    menuToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        categoryNav.classList.toggle('active');
+        dashboardContainer.classList.toggle('menu-open');
+    });
+
+    // 点击页面其他区域时关闭菜单
+    document.addEventListener('click', function(event) {
+        if (isMobile()) {
+            const isClickInsideNav = categoryNav.contains(event.target);
+            const isClickOnToggle = menuToggle.contains(event.target);
+            
+            if (!isClickInsideNav && !isClickOnToggle) {
+                categoryNav.classList.remove('active');
+                dashboardContainer.classList.remove('menu-open');
+            }
+        }
+    });
+
+    // 窗口大小改变时调整菜单状态
+    window.addEventListener('resize', function() {
+        initNavState();
+        if (!isMobile()) {
+            // 在桌面设备上显示所有分类
+            sections.forEach(section => {
+                section.style.display = 'block';
+            });
+        } else {
+            // 在移动设备上只显示当前激活的分类
+            const activeLink = document.querySelector('.category-link.active');
+            if (activeLink) {
+                const categoryId = activeLink.getAttribute('href').split('-')[1];
+                showCategory(categoryId);
+            }
+        }
+    });
+
+    // 初始化显示第一个分类
+    if (categoryLinks.length > 0) {
+        const firstCategoryId = categoryLinks[0].getAttribute('href').split('-')[1];
+        showCategory(firstCategoryId);
+    }
+
+    // 处理添加菜品表单提交
+    if (addDishForm) {
+        addDishForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(addDishForm);
+            
+            fetch('/api/dishes/add', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('添加菜品失败');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    alert('菜品添加成功');
+                    $('#addDishModal').modal('hide');
+                    addDishForm.reset();
+                    window.location.reload();
+                } else {
+                    throw new Error(data.error || '添加菜品失败');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('添加菜品失败: ' + error.message);
+            });
+        });
+    }
+    
+    // 处理编辑菜品表单提交
+    if (editDishForm) {
+        editDishForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const dishId = document.getElementById('editDishId').value;
+            const formData = new FormData(editDishForm);
+            
+            fetch(`/api/dishes/${dishId}`, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('更新菜品失败');
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert('菜品更新成功');
+                $('#editDishModal').modal('hide');
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('更新菜品失败: ' + error.message);
+            });
+        });
+    }
+    
+    // 处理确认删除按钮点击
+    if (confirmDeleteBtn) {
+        confirmDeleteBtn.addEventListener('click', function() {
+            const dishId = document.getElementById('deleteDishId').value;
+            
+            fetch(`/api/dishes/${dishId}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('删除菜品失败');
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert('菜品已成功删除');
+                $('#deleteDishModal').modal('hide');
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('删除菜品失败: ' + error.message);
+            });
+        });
+    }
+
+    // 添加菜品详情展示功能
+    dishCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            if (e.target.closest('.admin-controls')) {
+                return;
+            }
+
+            const dishId = this.dataset.dishId;
+            const dishName = this.querySelector('h3').textContent;
+            const dishPrice = this.querySelector('.price').textContent;
+            const dishImage = this.querySelector('.dish-image').src;
+
+            detailImage.src = dishImage;
+            detailName.textContent = dishName;
+            detailPrice.textContent = dishPrice;
+
+            if (detailEditBtn) {
+                detailEditBtn.onclick = () => editDish(dishId);
+            }
+            if (detailDeleteBtn) {
+                detailDeleteBtn.onclick = () => deleteDish(dishId);
+            }
+
+            detailModal.modal('show');
+        });
+    });
+});
+</script>
+{% endblock %}

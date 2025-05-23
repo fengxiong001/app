@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}用户注册{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container register-container"> {# Optional extra class #}
+    <h2>创建您的账户</h2>
+    <form action="{{ url_for('register') }}" method="post" id="registrationForm"> {# Updated action #}
+        <div class="form-group">
+            <label for="username">用户名:</label>
+            <input type="text" id="username" name="username" placeholder="设置您的用户名" required>
+        </div>
+        <div class="form-group">
+            <label for="email">邮箱:</label>
+            <input type="email" id="email" name="email" placeholder="请输入您的邮箱地址" required>
+        </div>
+        <div class="form-group">
+            <label for="password">密码:</label>
+            <input type="password" id="password" name="password" placeholder="设置您的密码 (至少6位)" required minlength="6">
+        </div>
+        <div class="form-group">
+            <label for="confirm_password">确认密码:</label>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="请再次输入密码" required>
+            <span id="password_match_error" class="error-message" style="display: none;">两次输入的密码不一致</span>
+        </div>
+        <button type="submit" class="submit-button register-button">注 册</button> {# Optional extra class #}
+        <div class="login-link">
+             <span>已有账号? <a href="{{ url_for('login') }}">立即登录</a></span> {# Link to login page #}
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {# Simple frontend password match validation (can be moved to a static JS file) #}
+    <script>
+        const form = document.getElementById('registrationForm');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirm_password');
+        const errorSpan = document.getElementById('password_match_error');
+
+        function validatePasswordMatch() {
+            if (password.value !== confirmPassword.value && confirmPassword.value.length > 0) {
+                errorSpan.style.display = 'block';
+                confirmPassword.style.borderColor = 'red';
+                return false; // Indicate mismatch
+            } else {
+                errorSpan.style.display = 'none';
+                confirmPassword.style.borderColor = '#ccc'; // Reset border
+                return true; // Indicate match or empty
+            }
+        }
+
+        form.addEventListener('submit', function(event) {
+            if (!validatePasswordMatch()) {
+                event.preventDefault(); // Stop submission if passwords don't match
+                confirmPassword.focus();
+            }
+            // Add other frontend checks here if needed (e.g., password complexity)
+        });
+
+        // Check on input change
+        password.addEventListener('input', validatePasswordMatch);
+        confirmPassword.addEventListener('input', validatePasswordMatch);
+    </script>
+{% endblock %}

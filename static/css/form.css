@@ -1,0 +1,171 @@
+/* Use the body background from base.css */
+body {
+    background: linear-gradient(to bottom right, #6dd5ed, #2193b0); /* Form page specific background */
+}
+
+.form-container {
+   background-color: rgba(255, 255, 255, 0.97); /* Slightly less transparent */
+   padding: 35px 45px;
+   border-radius: 12px; /* Smoother radius */
+   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+   width: 100%;
+   max-width: 420px;
+   text-align: center;
+   backdrop-filter: blur(6px); /* Enhance blur effect */
+   -webkit-backdrop-filter: blur(6px);
+   border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+}
+
+/* Optional: Slightly wider container for registration */
+.register-container {
+   max-width: 450px;
+}
+
+.form-container h2 {
+   margin-bottom: 30px; /* More space below title */
+   color: #2c3e50;
+   font-size: 28px; /* Larger title */
+   font-weight: 600;
+}
+
+.form-group {
+   margin-bottom: 20px;
+   text-align: left;
+}
+
+.form-group label {
+   display: block;
+   margin-bottom: 8px;
+   font-weight: bold;
+   font-size: 14px;
+   color: #495057; /* Darker gray */
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"] {
+   width: 100%;
+   padding: 12px 15px;
+   border: 1px solid #ced4da; /* Lighter border */
+   border-radius: 6px;
+   font-size: 16px;
+   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+   background-color: #fff; /* Ensure white background */
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus,
+.form-group input[type="email"]:focus {
+   border-color: #2193b0;
+   outline: none;
+   box-shadow: 0 0 0 3px rgba(33, 147, 176, 0.15); /* More visible focus ring */
+}
+
+/* Specific style for error message below input */
+.error-message {
+   color: #dc3545; /* Bootstrap danger color */
+   font-size: 12px;
+   display: block; /* Ensure it takes space */
+   margin-top: 4px;
+}
+
+/* Submit Button Styling */
+.submit-button {
+   width: 100%;
+   padding: 12px 20px; /* Slightly more padding */
+   color: #ffffff;
+   border: none;
+   border-radius: 6px;
+   font-size: 17px; /* Larger font */
+   font-weight: bold;
+   cursor: pointer;
+   transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
+   margin-top: 15px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   text-transform: uppercase; /* Optional: Uppercase text */
+   letter-spacing: 1px; /* Optional: Add letter spacing */
+}
+
+.submit-button.login-button {
+    background-color: #007bff; /* Blue for login */
+}
+.submit-button.login-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.submit-button.register-button {
+   background-color: #28a745; /* Green for register */
+}
+.submit-button.register-button:hover {
+   background-color: #218838;
+   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.submit-button:active {
+    transform: translateY(2px); /* More noticeable press effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Options below button (Remember me, Forgot Password) */
+.options {
+   margin-top: 20px; /* More space */
+   font-size: 14px;
+   color: #555;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+
+.options a {
+   color: #1c7c96;
+}
+
+.options a:hover {
+   text-decoration: underline;
+}
+
+.options .remember-me {
+   display: flex;
+   align-items: center;
+}
+
+.options .remember-me input[type="checkbox"] {
+   margin-right: 6px;
+   vertical-align: middle;
+   cursor: pointer;
+   width: 15px; /* Slightly larger checkbox */
+   height: 15px;
+}
+.options .remember-me label {
+   margin-bottom: 0;
+   font-weight: normal;
+   vertical-align: middle;
+   cursor: pointer;
+}
+
+/* Link to Register/Login at the bottom */
+.options-register,
+.login-link {
+   width: 100%; /* Make it full width */
+   justify-content: center; /* Center content */
+   margin-top: 25px;
+   padding-top: 20px;
+   border-top: 1px solid #e9ecef; /* Lighter separator */
+   font-size: 14px;
+   color: #6c757d; /* Gray text */
+}
+.options-register span,
+.login-link span {
+  color: #555; /* Keep span text slightly darker */
+}
+.options-register a,
+.login-link a {
+   color: #007bff; /* Standard link blue */
+   font-weight: bold;
+}
+.options-register a:hover,
+.login-link a:hover {
+   text-decoration: underline;
+}

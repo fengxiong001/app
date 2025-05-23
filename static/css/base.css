@@ -1,0 +1,69 @@
+/* Basic Resets and Body Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: 100vh;
+    font-family: 'Microsoft YaHei', Arial, sans-serif;
+    color: #333;
+    /* Default nice background - can be overridden by page-specific CSS if needed */
+    background: linear-gradient(to bottom right, #e0eafc, #cfdef3); /* Light blue/gray gradient */
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+/* Centering Wrapper for Content */
+.content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px; /* Add padding for smaller screens */
+}
+
+/* --- Flash Message Styles --- */
+.flash-message-container {
+    position: fixed; /* Or absolute, depending on layout needs */
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px; /* Limit width */
+    z-index: 1000; /* Ensure it's on top */
+    text-align: center;
+}
+
+.flash-messages {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.flash-messages li {
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 15px;
+    border: 1px solid transparent;
+    opacity: 0.95;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Message Categories */
+.flash-messages .success { background-color: #d4edda; color: #155724; border-color: #c3e6cb; }
+.flash-messages .error   { background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+.flash-messages .warning { background-color: #fff3cd; color: #856404; border-color: #ffeeba; }
+.flash-messages .info    { background-color: #d1ecf1; color: #0c5460; border-color: #bee5eb; }
+
+/* Basic Link Styling */
+a {
+    color: #007bff; /* Standard link blue */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
